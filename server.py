@@ -12,9 +12,9 @@ api = Flask(__name__)
 cors = CORS(api, resources={r"/*": {"origins": "*"}})
 
 
-def config_save():
+def config_save(data):
     with open('./config.json', 'w') as outfile:
-        json.dump(config, outfile)
+        json.dump(data, outfile)
 
 
 @api.route('/', methods=['GET'])
@@ -47,7 +47,7 @@ def home():
         config['last-new-number-date'] = date_now.strftime("%Y-%m-%d")
 
     # Save config file
-    config_save()
+    config_save(config)
 
     # Get numbers from array
     numbers = config['numbers']
@@ -56,11 +56,11 @@ def home():
     return str([numbers[0], numbers[1]])
 
 
-@api.route('/datetime', methods=['GET'])
+""" @api.route('/datetime', methods=['GET'])
 def datetime():
     a = _datetime.datetime.strptime(config['last-new-number-date'], "%Y-%m-%d")
     b = _datetime.datetime.now()
-    return str((b-a).days)
+    return str((b-a).days) """
 
 
 if __name__ == '__main__':
