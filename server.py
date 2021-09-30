@@ -19,6 +19,9 @@ def config_save():
 
 @api.route('/', methods=['GET'])
 def home():
+    # Load config from file
+    config = json.load(open("./config.json"))
+
     # Generate new numbers array if empty
     if(len(config['numbers']) < 2):
         # Generating and shuffling numbers

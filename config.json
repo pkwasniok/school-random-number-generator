@@ -1,1 +1,27 @@
-{"min-number": 1, "max-number": 21, "new-number-generation-period": 7, "last-new-number-date": "2021-09-30", "excluded-numbers": [8, 12], "numbers": [2, 19, 10, 4, 3, 21, 15, 18, 7, 11, 5, 6, 16, 14, 13]}
+{
+    "min-number": 1,
+    "max-number": 21,
+    "new-number-generation-period": 7,
+    "last-new-number-date": "2021-09-30",
+    "excluded-numbers": [
+        8,
+        12
+    ],
+    "numbers": [
+        2,
+        19,
+        10,
+        4,
+        3,
+        21,
+        15,
+        18,
+        7,
+        11,
+        5,
+        6,
+        16,
+        14,
+        13
+    ]
+}
