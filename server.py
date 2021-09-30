@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 import json
 import random
+import time
+import _datetime
 
 # Loading config file
 config = json.load(open("./config.json"))
@@ -30,18 +32,32 @@ def home():
         # Update config object
         config['numbers'] = numbers
 
-    # Extract 2 numbers and delete them from array
-    numbers = config['numbers']
-    num1 = numbers.pop(0)
-    num2 = numbers.pop(0)
-    config['numbers'] = numbers
+    # Check number od days from last number generation
+    date_last = _datetime.datetime.strptime(config['last-new-number-date'], "%Y-%m-%d")
+    date_now = _datetime.datetime.now()
+    if((date_now - date_last).days >= config['new-number-generation-period']):
+        # Extract 2 numbers and delete them from array
+        numbers = config['numbers']
+        numbers.pop(0)
+        numbers.pop(0)
+        config['numbers'] = numbers
+        config['last-new-number-date'] = date_now.strftime("%Y-%m-%d")
 
     # Save config file
     config_save()
 
+    # Get numbers from array
+    numbers = config['numbers']
+
     # Response to get request
-    # return str([num1, num2])
-    return str([num1, num2])
+    return str([numbers[0], numbers[1]])
+
+
+@api.route('/datetime', methods=['GET'])
+def datetime():
+    a = _datetime.datetime.strptime(config['last-new-number-date'], "%Y-%m-%d")
+    b = _datetime.datetime.now()
+    return str((b-a).days)
 
 
 if __name__ == '__main__':
